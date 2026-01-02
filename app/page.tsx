@@ -1,9 +1,9 @@
 import Image from "next/image";
 
 export default function Home() {
-  return (
-    <div className="flex justify-center items-center">
-        Under construction...
-    </div>
-  );
+    return (
+        <div className="flex min-h-screen justify-center items-center bg-black text-white">
+            <p>Under construction...</p>
+        </div>
+    );
 }
