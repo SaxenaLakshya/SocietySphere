@@ -1,0 +1,27 @@
+#0B1020  → Primary background (deep night blue)
+#0F1B2D  → Secondary background (layout sections)
+#14273E  → Elevated containers / panels
+
+rgba(255, 255, 255, 0.05) → Primary glass
+rgba(255, 255, 255, 0.08) → Hover glass
+rgba(255, 255, 255, 0.12) → Active / modal glass
+rgba(255, 255, 255, 0.15) → Borders
+
+#1F4F7A → Links / Focus outlines / Icons
+#2DD4BF → Primary Actions / Toggles / Active States
+#3EE4B0 → Success states / Subtle highlights / Data visualizations
+#4EA8A1 → Secondary buttons / Hover effects
+
+#E6EDF3 → Primary text
+#AAB4C3 → Secondary text
+#7A8699 → Muted text
+#566074 → Disabled text
+
+Success → #3EE4B0
+Info    → #38BDF8
+Warning → #F2C94C
+Error   → #F87171
+
+linear-gradient(135deg, #1F4F7A → #2DD4BF)
+
+#F2C94C → Logo
