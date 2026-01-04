@@ -27,7 +27,7 @@ export default function RootLayout({
 }: { children: React.ReactNode }) {
     return (
         <html lang="en">
-            <body className={`${poppins.variable} ${ebGaramond.variable}`}>
+            <body className={`${poppins.variable} ${ebGaramond.variable} night-sky-gradient text-[#E6EDF3]`}>
                 {children}
             </body>
         </html>

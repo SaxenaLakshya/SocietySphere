@@ -14,10 +14,10 @@ body {
 
 @layer utilities {
     .light-aurora-gradient {
-        @apply bg-gradient-to-br from-[#1F4F7A] to-[#2DD4BF];
+        @apply bg-linear-to-br from-[#1F4F7A] to-[#2DD4BF];
     };
 
     .night-sky-gradient {
-        @apply bg-gradient-to-br from-[#0B1020] to-[#0F1B2D];
+        @apply bg-linear-to-br from-[#0B1020] to-[#0F1B2D];
     };
 }
