@@ -3,4 +3,4 @@ A modern society security and management system designed to bring safety, transp
 
 ## Current changes to be made
 - Design a **404 Error Page**.
-- Create **Navigation Bar** and **Footer**.
+- Refine the **Navigation Bar** and **Footer**.
