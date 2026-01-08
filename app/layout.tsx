@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Poppins, EB_Garamond } from "next/font/google";
 import "./globals.css";
+import { Footer, Navbar } from "@/components";
 
 const poppins = Poppins({
     subsets: ["latin"],
@@ -28,7 +29,9 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body className={`${poppins.variable} ${ebGaramond.variable} night-sky-gradient text-[#E6EDF3]`}>
+                <Navbar />
                 {children}
+                <Footer />
             </body>
         </html>
     );

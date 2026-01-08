@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Navbar() {
     return (
@@ -9,12 +10,16 @@ export default function Navbar() {
                     <div className="flex h-16 items-center justify-between">
 
                         {/* LEFT: LOGO */}
-                        <Link href="/" className="flex items-center gap-2">
-                            <div className="h-9 w-9 rounded-lg bg-linear-to-br from-[#F2C94C] to-[#F2C94C]/80 flex items-center justify-center">
-                                <span className="text-[#0B1020] font-bold text-lg">S</span>
-                            </div>
+                        <Link href="/" className="flex items-center gap-3">
+                            <Image
+                                src="/favicon.svg"   // path to your SVG
+                                alt="SocietySphere Logo"
+                                width={36}
+                                height={36}
+                                priority
+                            />
                             <span className="text-lg font-semibold text-[#E6EDF3]">
-                                SocietySphere
+                                Society<span className="text-[#F2C94C]">Sphere</span>
                             </span>
                         </Link>
 
