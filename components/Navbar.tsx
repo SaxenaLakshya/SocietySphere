@@ -51,7 +51,7 @@ export default function Navbar() {
                             </Link>
 
                             <Link
-                                href="/get-started"
+                                href="/register"
                                 className="rounded-xl bg-linear-to-r from-[#1F4F7A] to-[#2DD4BF] px-5 py-2.5 text-sm font-medium text-white shadow-md transition hover:shadow-[#2DD4BF]/40"
                             >
                                 Get Started

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Hero, Features, CTASection, Footer, Navbar } from "@/components";
+import { Hero, Features, CTASection } from "@/components";
 
 export default function Home() {
     return (

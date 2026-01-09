@@ -54,13 +54,13 @@ export default function Footer() {
 
                         {/* LinkedIn */}
                         <Link
-                            href="https://linkedin.com"
+                            href="https://www.linkedin.com/in/lakshya-saxena-704607260/"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="group"
                         >
                             <Image
-                                src="/linkedin.svg" // LinkedIn icon path
+                                src="/linkedin.svg"
                                 alt="LinkedIn"
                                 width={24}
                                 height={24}
@@ -72,13 +72,13 @@ export default function Footer() {
 
                         {/* Instagram */}
                         <Link
-                            href="https://instagram.com"
+                            href="https://www.instagram.com/mist.muse05/"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="group"
                         >
                             <Image
-                                src="instagram.svg" // Instagram icon path
+                                src="instagram.svg"
                                 alt="Instagram"
                                 width={24}
                                 height={24}
@@ -90,13 +90,13 @@ export default function Footer() {
 
                         {/* GitHub */}
                         <Link
-                            href="https://github.com"
+                            href="https://github.com/SaxenaLakshya"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="group"
                         >
                             <Image
-                                src="github.svg" // GitHub icon path
+                                src="github.svg"
                                 alt="GitHub"
                                 width={24}
                                 height={24}
