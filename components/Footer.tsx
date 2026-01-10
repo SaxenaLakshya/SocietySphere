@@ -10,7 +10,7 @@ export default function Footer() {
                     {/* LEFT: BRAND */}
                     <div className="text-center md:text-left">
                         <h3 className="text-xl font-semibold text-[#E6EDF3]">
-                            SocietySphere
+                            Society<span className="text-[#F2C94C]">Sphere</span>
                         </h3>
                         <p className="mt-2 text-sm text-[#AAB4C3] max-w-sm">
                             A modern society security and management platform built for calm,
