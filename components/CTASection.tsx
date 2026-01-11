@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function CTASection() {
     return (
@@ -35,9 +36,12 @@ export default function CTASection() {
 
                         {/* CTA BUTTONS */}
                         <div className="mt-8 flex flex-wrap gap-4">
-                            <button className="relative overflow-hidden rounded-xl bg-linear-to-r from-[#1F4F7A]/40 to-[#2DD4BF]/40 backdrop-blur-md border border-white/20 px-6 py-3 font-medium text-white shadow-lg shadow-[#2DD4BF]/20 transition hover:scale-105 hover:shadow-[#2DD4BF]/40 animate-pulse">
+                            <Link
+                                href="/register"
+                                className="relative inline-flex items-center overflow-hidden rounded-xl bg-linear-to-r from-[#1F4F7A]/40 to-[#2DD4BF]/40 backdrop-blur-md border border-white/20 px-6 py-3 font-medium text-white shadow-lg shadow-[#2DD4BF]/20 transition hover:scale-105 hover:shadow-[#2DD4BF]/40 animate-pulse"
+                            >
                                 Get Started
-                            </button>
+                            </Link>
 
                             <button className="relative overflow-hidden rounded-xl bg-linear-to-r from-white/10 to-white/5 backdrop-blur-md border border-white/20 px-6 py-3 font-medium text-[#E6EDF3] shadow-lg transition hover:bg-white/15 hover:scale-105">
                                 Explore the System
