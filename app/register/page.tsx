@@ -34,7 +34,7 @@ export default function RegisterPage() {
                             </label>
                             <input
                                 type="text"
-                                placeholder="Lakshya Saxena"
+                                placeholder="Your Name"
                                 className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-[#E6EDF3] placeholder:text-[#6B7280] focus:outline-none focus:ring-2 focus:ring-[#2DD4BF]/40"
                             />
                         </div>
