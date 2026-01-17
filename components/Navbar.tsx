@@ -12,7 +12,7 @@ export default function Navbar() {
                         {/* LEFT: LOGO */}
                         <Link href="/" className="flex items-center gap-3">
                             <Image
-                                src="/favicon.svg"   // path to your SVG
+                                src="/favicon.svg"
                                 alt="SocietySphere Logo"
                                 width={36}
                                 height={36}

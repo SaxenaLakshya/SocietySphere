@@ -2,10 +2,69 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { GlobalAlert } from "@/components/GlobalAlert";
+import { RegisterInputs } from "@/types";
+import { useState, useEffect } from "react";
 
 export default function RegisterPage() {
+    const [alert, setAlert] = useState<{
+        type: "info" | "success" | "warning" | "error"
+        message: string
+    } | null>(null)
+
+    const {
+        register,
+        handleSubmit,
+        watch,
+        reset,
+        formState: { errors, isSubmitted },
+    } = useForm<RegisterInputs>()
+
+    const onSubmit: SubmitHandler<RegisterInputs> = (data) => {
+        try {
+            console.log(data)
+            setAlert({
+                type: "success",
+                message: "Account created successfully!",
+            })
+            reset()
+        } catch {
+            setAlert({
+                type: "error",
+                message: "Registration failed. Please try again.",
+            })
+        }
+    }
+
+    const onError = () => {
+        setAlert({
+            type: "error",
+            message: "Please enter all the fields and accept the Terms before submitting.",
+        })
+    }
+
+    useEffect(() => {
+        if (!alert) return
+
+        const timer = setTimeout(() => setAlert(null), 4000)
+        return () => clearTimeout(timer)
+    }, [alert])
+
+    useEffect(() => {
+        setAlert({
+            type: "info",
+            message: "All fields are required. Please fill in accurate details.",
+        })
+    }, [])
+
+
     return (
         <main className="min-h-[calc(100vh-4rem)] py-25 bg-[#0B1020] flex items-center justify-center px-6">
+
+            {alert && (
+                <GlobalAlert type={alert.type} message={alert.message} />
+            )}
 
             {/* Ambient Background Glow */}
             <div className="absolute inset-0 overflow-hidden">
@@ -25,7 +84,7 @@ export default function RegisterPage() {
                         Join your residential community with secure access and seamless management.
                     </p>
 
-                    <form className="space-y-6">
+                    <form className="space-y-6" onSubmit={handleSubmit(onSubmit, onError)}>
 
                         {/* Full Name */}
                         <div>
@@ -36,6 +95,7 @@ export default function RegisterPage() {
                                 type="text"
                                 placeholder="Your Name"
                                 className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-[#E6EDF3] placeholder:text-[#6B7280] focus:outline-none focus:ring-2 focus:ring-[#2DD4BF]/40"
+                                {...register("fullName", { required: "Full name is required" })}
                             />
                         </div>
 
@@ -48,6 +108,12 @@ export default function RegisterPage() {
                                 type="email"
                                 placeholder="you@societysphere.com"
                                 className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-[#E6EDF3] placeholder:text-[#6B7280] focus:outline-none focus:ring-2 focus:ring-[#2DD4BF]/40"
+                                {...register("email", {
+                                    required: "Email address is required", pattern: {
+                                        value: /^\S+@\S+$/i,
+                                        message: "Invalid email address",
+                                    }
+                                })}
                             />
                         </div>
 
@@ -60,6 +126,7 @@ export default function RegisterPage() {
                                 type="tel"
                                 placeholder="+91 XXXXX XXXXX"
                                 className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-[#E6EDF3] placeholder:text-[#6B7280] focus:outline-none focus:ring-2 focus:ring-[#2DD4BF]/40"
+                                {...register("mobileNumber", { required: "Contact number is required" })}
                             />
                         </div>
 
@@ -72,6 +139,7 @@ export default function RegisterPage() {
                                 type="text"
                                 placeholder="e.g. SS-1024"
                                 className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-[#E6EDF3] placeholder:text-[#6B7280] focus:outline-none focus:ring-2 focus:ring-[#2DD4BF]/40"
+                                {...register("societyCode", { required: "Society Code is required" })}
                             />
                         </div>
 
@@ -82,10 +150,12 @@ export default function RegisterPage() {
                             </label>
                             <select
                                 className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-[#E6EDF3] focus:outline-none focus:ring-2 focus:ring-[#2DD4BF]/40"
+                                {...register("role", { required: "Please select a role" })}
                             >
-                                <option className="bg-[#0B1020]">Resident</option>
-                                <option className="bg-[#0B1020]">Tenant</option>
-                                <option className="bg-[#0B1020]">Security Staff</option>
+                                <option value="">Select Role</option>
+                                <option value="resident" className="bg-[#0B1020]">Resident</option>
+                                <option value="tenant" className="bg-[#0B1020]">Tenant</option>
+                                <option value="staff" className="bg-[#0B1020]">Security Staff</option>
                             </select>
                         </div>
 
@@ -98,6 +168,7 @@ export default function RegisterPage() {
                                 type="password"
                                 placeholder="••••••••"
                                 className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-[#E6EDF3] placeholder:text-[#6B7280] focus:outline-none focus:ring-2 focus:ring-[#2DD4BF]/40"
+                                {...register("password", { required: "Password is required" })}
                             />
                         </div>
 
@@ -110,13 +181,22 @@ export default function RegisterPage() {
                                 type="password"
                                 placeholder="••••••••"
                                 className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-[#E6EDF3] placeholder:text-[#6B7280] focus:outline-none focus:ring-2 focus:ring-[#2DD4BF]/40"
+                                {...register("confirmPassword", {
+                                    required: "Please confirm the entered password", validate: (value) =>
+                                        value === watch("password") || "Passwords do not match",
+                                })}
                             />
                         </div>
 
                         {/* Terms */}
                         <label className="flex items-start gap-2 text-sm text-[#AAB4C3]">
-                            <input type="checkbox" className="accent-[#2DD4BF] mt-1" />
-                            I agree to the{" "}
+                            <input
+                                type="checkbox"
+                                className="accent-[#2DD4BF] mt-1"
+                                {...register("terms", {
+                                    required: "You must accept the Terms & Privacy Policy",
+                                })}
+                            />                            I agree to the{" "}
                             <Link href="/terms" className="text-[#2DD4BF] hover:underline">
                                 Terms & Privacy Policy
                             </Link>

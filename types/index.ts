@@ -4,3 +4,21 @@ export interface FeatureCardProps {
     title: string,
     description: string,
 };
+
+export type RegisterInputs = {
+    fullName: string,
+    email: string,
+    mobileNumber: number,
+    societyCode: string,
+    role: "resident" | "tenant" | "staff",
+    password: string,
+    confirmPassword: string,
+    terms: boolean,
+};
+
+export type AlertType = "info" | "success" | "warning" | "error"
+
+export type GlobalAlertProps = {
+    type: AlertType
+    message: string
+}
