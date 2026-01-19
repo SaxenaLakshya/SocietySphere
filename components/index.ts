@@ -4,6 +4,7 @@ import Features from "./Features";
 import CTASection from "./CTASection";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
+import GlobalAlert from "./GlobalAlert";
 
 export {
     Hero,
@@ -12,4 +13,5 @@ export {
     CTASection,
     Footer,
     Navbar,
+    GlobalAlert,
 };
