@@ -10,7 +10,7 @@ const alertColors: Record<GlobalAlertProps["type"], { border: string; bg: string
     error: { border: "border-[#F87171]/40", bg: "bg-[#F87171]/10", text: "text-[#F87171]" },
 }
 
-export function GlobalAlert({ type, message }: GlobalAlertProps) {
+export default function GlobalAlert({ type, message }: GlobalAlertProps) {
     const colors = alertColors[type]
     const [visible, setVisible] = useState(false)
     const [render, setRender] = useState(true) // Keep in DOM while fading out
