@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { GlobalAlert } from "@/components/GlobalAlert";
+import { GlobalAlert } from "@/components";
 import { RegisterInputs } from "@/types";
 import { useState, useEffect } from "react";
 
