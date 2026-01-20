@@ -12,7 +12,6 @@ export type RegisterInputs = {
     societyCode: string,
     role: "resident" | "tenant" | "staff",
     password: string,
-    confirmPassword: string,
     terms: boolean,
 };
 

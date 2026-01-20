@@ -13,6 +13,8 @@ export default function RegisterPage() {
         message: string
     } | null>(null)
 
+    const [showPassword, setShowPassword] = useState<boolean>(false);
+
     const {
         register,
         handleSubmit,
@@ -110,7 +112,7 @@ export default function RegisterPage() {
                                 className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-[#E6EDF3] placeholder:text-[#6B7280] focus:outline-none focus:ring-2 focus:ring-[#2DD4BF]/40"
                                 {...register("email", {
                                     required: "Email address is required", pattern: {
-                                        value: /^\S+@\S+$/i,
+                                        value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
                                         message: "Invalid email address",
                                     }
                                 })}
@@ -126,7 +128,10 @@ export default function RegisterPage() {
                                 type="tel"
                                 placeholder="+91 XXXXX XXXXX"
                                 className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-[#E6EDF3] placeholder:text-[#6B7280] focus:outline-none focus:ring-2 focus:ring-[#2DD4BF]/40"
-                                {...register("mobileNumber", { required: "Contact number is required" })}
+                                {...register("mobileNumber", { required: "Contact number is required", pattern: {
+                                    value: /^[0-9]{10}$/,
+                                    message: "Invalid phone number",
+                                } })}
                             />
                         </div>
 
@@ -139,7 +144,12 @@ export default function RegisterPage() {
                                 type="text"
                                 placeholder="e.g. SS-1024"
                                 className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-[#E6EDF3] placeholder:text-[#6B7280] focus:outline-none focus:ring-2 focus:ring-[#2DD4BF]/40"
-                                {...register("societyCode", { required: "Society Code is required" })}
+                                {...register("societyCode", {
+                                    required: "Society Code is required", pattern: {
+                                        value: /^[A-Z]{2}-\d{4}$/,
+                                        message: "Invalid society code",
+                                    }
+                                })}
                             />
                         </div>
 
@@ -164,28 +174,29 @@ export default function RegisterPage() {
                             <label className="block text-sm text-[#AAB4C3] mb-2">
                                 Password
                             </label>
-                            <input
-                                type="password"
-                                placeholder="••••••••"
-                                className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-[#E6EDF3] placeholder:text-[#6B7280] focus:outline-none focus:ring-2 focus:ring-[#2DD4BF]/40"
-                                {...register("password", { required: "Password is required" })}
-                            />
-                        </div>
 
-                        {/* Confirm Password */}
-                        <div>
-                            <label className="block text-sm text-[#AAB4C3] mb-2">
-                                Confirm password
-                            </label>
-                            <input
-                                type="password"
-                                placeholder="••••••••"
-                                className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-[#E6EDF3] placeholder:text-[#6B7280] focus:outline-none focus:ring-2 focus:ring-[#2DD4BF]/40"
-                                {...register("confirmPassword", {
-                                    required: "Please confirm the entered password", validate: (value) =>
-                                        value === watch("password") || "Passwords do not match",
-                                })}
-                            />
+                            <div className="relative">
+                                <input
+                                    type={showPassword ? "text" : "password"}
+                                    placeholder="Your password"
+                                    className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 pr-12 text-[#E6EDF3] placeholder:text-[#6B7280] focus:outline-none focus:ring-2 focus:ring-[#2DD4BF]/40"
+                                    {...register("password", { required: "Password is required" })}
+                                />
+
+                                <button
+                                    type="button"
+                                    onClick={() => { setShowPassword(!showPassword) }}
+                                    className="absolute inset-y-0 right-4 flex items-center cursor-pointer"
+                                >
+                                    <Image
+                                        src={showPassword ? "/eye open.svg" : "/eye close.svg"}
+                                        alt="show password button"
+                                        width={18}
+                                        height={18}
+                                        className="brightness-0 invert opacity-70"
+                                    />
+                                </button>
+                            </div>
                         </div>
 
                         {/* Terms */}
