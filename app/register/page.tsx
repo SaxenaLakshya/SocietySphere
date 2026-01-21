@@ -4,14 +4,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { GlobalAlert } from "@/components";
-import { RegisterInputs } from "@/types";
+import { RegisterFormInputs, GlobalAlertProps } from "@/types";
 import { useState, useEffect } from "react";
 
 export default function RegisterPage() {
-    const [alert, setAlert] = useState<{
-        type: "info" | "success" | "warning" | "error"
-        message: string
-    } | null>(null)
+    const [alert, setAlert] = useState<GlobalAlertProps | null>(null);
 
     const [showPassword, setShowPassword] = useState<boolean>(false);
 
@@ -21,9 +18,9 @@ export default function RegisterPage() {
         watch,
         reset,
         formState: { errors, isSubmitted },
-    } = useForm<RegisterInputs>()
+    } = useForm<RegisterFormInputs>()
 
-    const onSubmit: SubmitHandler<RegisterInputs> = (data) => {
+    const onSubmit: SubmitHandler<RegisterFormInputs> = (data) => {
         try {
             console.log(data)
             setAlert({
@@ -41,8 +38,8 @@ export default function RegisterPage() {
 
     const onError = () => {
         setAlert({
-            type: "error",
-            message: "Please enter all the fields and accept the Terms before submitting.",
+            type: "warning",
+            message: "Please check all the fields and accept the Terms before submitting.",
         })
     }
 

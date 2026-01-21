@@ -2,10 +2,68 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { LoginFormInput, GlobalAlertProps } from "@/types";
+import { GlobalAlert } from "@/components";
+import { useState, useEffect } from "react";
 
 export default function LoginPage() {
+    const [alert, setAlert] = useState<GlobalAlertProps | null>(null);
+
+    const [showPassword, setShowPassword] = useState<boolean>(false);
+
+    const {
+        register,
+        handleSubmit,
+        watch,
+        reset,
+        formState: { errors, isSubmitted },
+    } = useForm<LoginFormInput>()
+
+    const onSubmit: SubmitHandler<LoginFormInput> = (data) => {
+        try {
+            console.log(data)
+            setAlert({
+                type: "success",
+                message: "Logging In!",
+            })
+            reset()
+        } catch {
+            setAlert({
+                type: "error",
+                message: "Login failed. Please try again.",
+            })
+        }
+    }
+
+    const onError = () => {
+        setAlert({
+            type: "warning",
+            message: "Please check all the fields before submitting.",
+        })
+    }
+
+    useEffect(() => {
+        if (!alert) return
+
+        const timer = setTimeout(() => setAlert(null), 4000)
+        return () => clearTimeout(timer)
+    }, [alert])
+
+    useEffect(() => {
+        setAlert({
+            type: "info",
+            message: "All fields are required. Please fill in accurate details.",
+        })
+    }, [])
+
+
     return (
         <main className="min-h-screen bg-[#0B1020] flex items-center justify-center px-6">
+
+            {alert && (
+                <GlobalAlert type={alert.type} message={alert.message} />
+            )}
 
             {/* Ambient Background Glow */}
             <div className="absolute inset-0 overflow-hidden">
@@ -25,7 +83,7 @@ export default function LoginPage() {
                         Sign in to continue managing your society securely.
                     </p>
 
-                    <form className="space-y-6">
+                    <form className="space-y-6" onSubmit={handleSubmit(onSubmit, onError)}>
 
                         {/* Email */}
                         <div>
@@ -36,6 +94,12 @@ export default function LoginPage() {
                                 type="email"
                                 placeholder="you@societysphere.com"
                                 className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-[#E6EDF3] placeholder:text-[#6B7280] focus:outline-none focus:ring-2 focus:ring-[#2DD4BF]/40"
+                                {...register("email", {
+                                    required: "Email address is required", pattern: {
+                                        value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                                        message: "Invalid email address",
+                                    }
+                                })}
                             />
                         </div>
 
@@ -44,11 +108,29 @@ export default function LoginPage() {
                             <label className="block text-sm text-[#AAB4C3] mb-2">
                                 Password
                             </label>
-                            <input
-                                type="password"
-                                placeholder="••••••••"
-                                className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-[#E6EDF3] placeholder:text-[#6B7280] focus:outline-none focus:ring-2 focus:ring-[#2DD4BF]/40"
-                            />
+
+                            <div className="relative">
+                                <input
+                                    type={showPassword ? "text" : "password"}
+                                    placeholder="Your password"
+                                    className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 pr-12 text-[#E6EDF3] placeholder:text-[#6B7280] focus:outline-none focus:ring-2 focus:ring-[#2DD4BF]/40"
+                                    {...register("password", { required: "Password is required" })}
+                                />
+
+                                <button
+                                    type="button"
+                                    onClick={() => { setShowPassword(!showPassword) }}
+                                    className="absolute inset-y-0 right-4 flex items-center cursor-pointer"
+                                >
+                                    <Image
+                                        src={showPassword ? "/eye open.svg" : "/eye close.svg"}
+                                        alt="show password button"
+                                        width={18}
+                                        height={18}
+                                        className="brightness-0 invert opacity-70"
+                                    />
+                                </button>
+                            </div>
                         </div>
 
                         {/* Actions */}
@@ -57,6 +139,7 @@ export default function LoginPage() {
                                 <input
                                     type="checkbox"
                                     className="accent-[#2DD4BF]"
+                                    {...register("rememberMe")}
                                 />
                                 Remember me
                             </label>

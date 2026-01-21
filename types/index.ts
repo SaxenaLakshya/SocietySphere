@@ -5,7 +5,7 @@ export interface FeatureCardProps {
     description: string,
 };
 
-export type RegisterInputs = {
+export type RegisterFormInputs = {
     fullName: string,
     email: string,
     mobileNumber: number,
@@ -13,6 +13,12 @@ export type RegisterInputs = {
     role: "resident" | "tenant" | "staff",
     password: string,
     terms: boolean,
+};
+
+export type LoginFormInput = {
+    email: string,
+    password: string,
+    rememberMe: boolean,
 };
 
 export type AlertType = "info" | "success" | "warning" | "error"
