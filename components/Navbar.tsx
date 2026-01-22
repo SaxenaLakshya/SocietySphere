@@ -26,7 +26,7 @@ export default function Navbar() {
                         {/* CENTER: NAV LINKS */}
                         <nav className="hidden md:flex items-center gap-8 text-sm">
                             {[
-                                { name: "Features", href: "#features" },
+                                { name: "Home", href: "/" },
                                 { name: "Security", href: "#security" },
                                 { name: "About", href: "#about" },
                                 { name: "Contact", href: "#contact" },
