@@ -2,10 +2,68 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { GlobalAlertProps, AdminFormInputs } from "@/types";
+import GlobalAlert from "./GlobalAlert";
+import { useState, useEffect } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
 
 export default function AdminRegisterForm() {
+    const [alert, setAlert] = useState<GlobalAlertProps | null>(null);
+
+    const [showPassword, setShowPassword] = useState<boolean>(false);
+
+    const {
+        register,
+        handleSubmit,
+        watch,
+        reset,
+        formState: { errors, isSubmitted },
+    } = useForm<AdminFormInputs>()
+
+    const onSubmit: SubmitHandler<AdminFormInputs> = (data) => {
+        try {
+            console.log(data)
+            setAlert({
+                type: "success",
+                message: "Account created successfully!",
+            })
+            reset()
+        } catch {
+            setAlert({
+                type: "error",
+                message: "Registration failed. Please try again.",
+            })
+        }
+    }
+
+    const onError = () => {
+        setAlert({
+            type: "warning",
+            message: "Please check all the fields and accept the Terms before submitting.",
+        })
+    }
+
+    useEffect(() => {
+        if (!alert) return
+
+        const timer = setTimeout(() => setAlert(null), 4000)
+        return () => clearTimeout(timer)
+    }, [alert])
+
+    useEffect(() => {
+        setAlert({
+            type: "info",
+            message: "All fields are required. Please fill in accurate details.",
+        })
+    }, [])
+
+
     return (
-        <main className="min-h-[calc(100vh-4rem)] py-25 bg-[#0B1020] flex items-center justify-center px-6">
+        <main className="relative min-h-screen bg-[#0B1020] flex items-center justify-center px-6">
+
+            {alert && (
+                <GlobalAlert type={alert.type} message={alert.message} />
+            )}
 
             {/* Ambient Glow */}
             <div className="absolute inset-0 overflow-hidden">
@@ -15,7 +73,6 @@ export default function AdminRegisterForm() {
 
             <div className="relative z-10 w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
 
-                {/* LEFT: FORM */}
                 <div className="backdrop-blur-xl bg-white/5 border border-white/10 rounded-3xl p-10 shadow-2xl">
 
                     <h1 className="text-3xl font-semibold text-[#E6EDF3] mb-2">
@@ -25,7 +82,7 @@ export default function AdminRegisterForm() {
                         Register as a society admin and bring your community to SocietySphere.
                     </p>
 
-                    <form className="space-y-6">
+                    <form className="space-y-6" onSubmit={handleSubmit(onSubmit, onError)}>
 
                         {/* Admin Name */}
                         <div>
@@ -35,8 +92,8 @@ export default function AdminRegisterForm() {
                             <input
                                 type="text"
                                 placeholder="Society President / Admin"
-                                className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-[#E6EDF3]
-                                placeholder:text-[#6B7280] focus:outline-none focus:ring-2 focus:ring-[#2DD4BF]/40"
+                                className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-[#E6EDF3] placeholder:text-[#6B7280] focus:outline-none focus:ring-2 focus:ring-[#2DD4BF]/40"
+                                {...register("fullName", { required: "Full name is required" })}
                             />
                         </div>
 
@@ -48,8 +105,13 @@ export default function AdminRegisterForm() {
                             <input
                                 type="email"
                                 placeholder="admin@societysphere.com"
-                                className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-[#E6EDF3]
-                                placeholder:text-[#6B7280] focus:outline-none focus:ring-2 focus:ring-[#2DD4BF]/40"
+                                className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-[#E6EDF3] placeholder:text-[#6B7280] focus:outline-none focus:ring-2 focus:ring-[#2DD4BF]/40"
+                                {...register("email", {
+                                    required: "Email address is required", pattern: {
+                                        value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                                        message: "Invalid email address",
+                                    }
+                                })}
                             />
                         </div>
 
@@ -61,8 +123,13 @@ export default function AdminRegisterForm() {
                             <input
                                 type="tel"
                                 placeholder="+91 XXXXX XXXXX"
-                                className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-[#E6EDF3]
-                                placeholder:text-[#6B7280] focus:outline-none focus:ring-2 focus:ring-[#2DD4BF]/40"
+                                className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-[#E6EDF3] placeholder:text-[#6B7280] focus:outline-none focus:ring-2 focus:ring-[#2DD4BF]/40"
+                                {...register("mobileNumber", {
+                                    required: "Contact number is required", pattern: {
+                                        value: /^[0-9]{10}$/,
+                                        message: "Invalid phone number",
+                                    }
+                                })}
                             />
                         </div>
 
@@ -74,41 +141,51 @@ export default function AdminRegisterForm() {
                             <input
                                 type="text"
                                 placeholder="Green Valley Residency"
-                                className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-[#E6EDF3]
-                                placeholder:text-[#6B7280] focus:outline-none focus:ring-2 focus:ring-[#2DD4BF]/40"
+                                className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-[#E6EDF3] placeholder:text-[#6B7280] focus:outline-none focus:ring-2 focus:ring-[#2DD4BF]/40"
+                                {...register("societyName", { required: "Society name is required" })}
                             />
                         </div>
 
                         {/* Location */}
-                        <div className="grid grid-cols-2 gap-4">
-                            <input
-                                type="text"
-                                placeholder="City"
-                                className="rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-[#E6EDF3]
-                                placeholder:text-[#6B7280] focus:outline-none focus:ring-2 focus:ring-[#2DD4BF]/40"
-                            />
-                            <input
-                                type="text"
-                                placeholder="State"
-                                className="rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-[#E6EDF3]
-                                placeholder:text-[#6B7280] focus:outline-none focus:ring-2 focus:ring-[#2DD4BF]/40"
-                            />
+                        <div>
+                            <p className="block text-sm text-[#AAB4C3] mb-2">
+                                Society location
+                            </p>
+                            <div className="grid grid-cols-2 gap-4">
+                                <input
+                                    type="text"
+                                    placeholder="City"
+                                    className="rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-[#E6EDF3] placeholder:text-[#6B7280] focus:outline-none focus:ring-2 focus:ring-[#2DD4BF]/40"
+                                    {...register("city", { required: "City of the society is required" })}
+                                />
+                                <input
+                                    type="text"
+                                    placeholder="State"
+                                    className="rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-[#E6EDF3] placeholder:text-[#6B7280] focus:outline-none focus:ring-2 focus:ring-[#2DD4BF]/40"
+                                    {...register("state", { required: "State of the society is require" })}
+                                />
+                            </div>
                         </div>
 
-                        {/* Society Size */}
-                        <div className="grid grid-cols-2 gap-4">
-                            <input
-                                type="number"
-                                placeholder="Total towers"
-                                className="rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-[#E6EDF3]
-                                placeholder:text-[#6B7280] focus:outline-none focus:ring-2 focus:ring-[#2DD4BF]/40"
-                            />
-                            <input
-                                type="number"
-                                placeholder="Total flats"
-                                className="rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-[#E6EDF3]
-                                placeholder:text-[#6B7280] focus:outline-none focus:ring-2 focus:ring-[#2DD4BF]/40"
-                            />
+                        {/* Society Info */}
+                        <div>
+                            <p className="block text-sm text-[#AAB4C3] mb-2">
+                                Society information
+                            </p>
+                            <div className="grid grid-cols-2 gap-4">
+                                <input
+                                    type="number"
+                                    placeholder="Total towers"
+                                    className="rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-[#E6EDF3] placeholder:text-[#6B7280] focus:outline-none focus:ring-2 focus:ring-[#2DD4BF]/40"
+                                    {...register("towers", { required: "Number of towers in the society is required" })}
+                                />
+                                <input
+                                    type="number"
+                                    placeholder="Total houses"
+                                    className="rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-[#E6EDF3] placeholder:text-[#6B7280] focus:outline-none focus:ring-2 focus:ring-[#2DD4BF]/40"
+                                    {...register("houses", { required: "Number of houses in the society is required" })}
+                                />
+                            </div>
                         </div>
 
                         {/* Password */}
@@ -116,32 +193,49 @@ export default function AdminRegisterForm() {
                             <label className="block text-sm text-[#AAB4C3] mb-2">
                                 Password
                             </label>
-                            <input
-                                type="password"
-                                placeholder="••••••••"
-                                className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-[#E6EDF3]
-                                placeholder:text-[#6B7280] focus:outline-none focus:ring-2 focus:ring-[#2DD4BF]/40"
-                            />
+
+                            <div className="relative">
+                                <input
+                                    type={showPassword ? "text" : "password"}
+                                    placeholder="Your password"
+                                    className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 pr-12 text-[#E6EDF3] placeholder:text-[#6B7280] focus:outline-none focus:ring-2 focus:ring-[#2DD4BF]/40"
+                                    {...register("password", { required: "Password is required" })}
+                                />
+
+                                <button
+                                    type="button"
+                                    onClick={() => { setShowPassword(!showPassword) }}
+                                    className="absolute inset-y-0 right-4 flex items-center cursor-pointer"
+                                >
+                                    <Image
+                                        src={showPassword ? "/eye open.svg" : "/eye close.svg"}
+                                        alt="show password button"
+                                        width={18}
+                                        height={18}
+                                        className="brightness-0 invert opacity-70"
+                                    />
+                                </button>
+                            </div>
                         </div>
 
-                        {/* Confirm Password */}
-                        <div>
-                            <label className="block text-sm text-[#AAB4C3] mb-2">
-                                Confirm password
-                            </label>
+                        {/* Terms */}
+                        <label className="flex items-start gap-2 text-sm text-[#AAB4C3]">
                             <input
-                                type="password"
-                                placeholder="••••••••"
-                                className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-[#E6EDF3]
-                                placeholder:text-[#6B7280] focus:outline-none focus:ring-2 focus:ring-[#2DD4BF]/40"
-                            />
-                        </div>
+                                type="checkbox"
+                                className="accent-[#2DD4BF] mt-1"
+                                {...register("terms", {
+                                    required: "You must accept the Terms & Privacy Policy",
+                                })}
+                            />                            I agree to the{" "}
+                            <Link href="/terms" className="text-[#2DD4BF] hover:underline">
+                                Terms & Privacy Policy
+                            </Link>
+                        </label>
 
                         {/* Submit */}
                         <button
                             type="submit"
-                            className="w-full rounded-xl bg-linear-to-r from-[#FACC15] to-[#2DD4BF]
-                            py-3 font-medium text-[#0B1020] transition hover:shadow-lg hover:shadow-[#FACC15]/30"
+                            className="w-full rounded-xl bg-linear-to-r from-[#FACC15] to-[#2DD4BF] py-3 font-medium text-[#0B1020] transition hover:shadow-lg hover:shadow-[#FACC15]/30"
                         >
                             Create society
                         </button>
@@ -154,6 +248,7 @@ export default function AdminRegisterForm() {
                         </Link>
                     </p>
                 </div>
+
 
                 {/* RIGHT: IMAGE */}
                 <div
@@ -186,8 +281,7 @@ export default function AdminRegisterForm() {
 
                     {/* Image Card */}
                     <div
-                        className="relative h-full overflow-hidden rounded-3xl border border-white/10
-                    transform-gpu transition-transform duration-300 ease-out"
+                        className="relative h-full overflow-hidden rounded-3xl border border-white/10 transform-gpu transition-transform duration-300 ease-out"
                         style={{
                             transform: "perspective(1000px) rotateX(var(--rx)) rotateY(var(--ry))",
                         }}

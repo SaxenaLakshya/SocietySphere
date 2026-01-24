@@ -15,6 +15,19 @@ export type RegisterFormInputs = {
     terms: boolean,
 };
 
+export type AdminFormInputs = {
+    fullName: string,
+    email: string,
+    mobileNumber: number,
+    societyName: string,
+    city: string,
+    state: string,
+    towers: number,
+    houses: number,
+    password: string,
+    terms: boolean,
+};
+
 export type LoginFormInput = {
     email: string,
     password: string,

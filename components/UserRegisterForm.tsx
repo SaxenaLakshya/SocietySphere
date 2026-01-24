@@ -59,7 +59,7 @@ export default function UserRegisterForm() {
 
 
     return (
-        <main className="min-h-[calc(100vh-4rem)] py-25 bg-[#0B1020] flex items-center justify-center px-6">
+        <main className="relative min-h-screen bg-[#0B1020] flex items-center justify-center px-6">
 
             {alert && (
                 <GlobalAlert type={alert.type} message={alert.message} />
