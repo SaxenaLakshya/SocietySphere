@@ -40,3 +40,8 @@ export type GlobalAlertProps = {
     type: AlertType
     message: string
 }
+
+export type ContactFormInput = {
+    email: string,
+    message: string,
+};

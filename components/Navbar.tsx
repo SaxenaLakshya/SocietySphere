@@ -28,8 +28,8 @@ export default function Navbar() {
                             {[
                                 { name: "Home", href: "/" },
                                 { name: "Security", href: "#security" },
-                                { name: "About", href: "#about" },
-                                { name: "Contact", href: "#contact" },
+                                { name: "About", href: "/about" },
+                                { name: "Contact", href: "/contact" },
                             ].map((item) => (
                                 <Link
                                     key={item.name}
