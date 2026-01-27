@@ -3,3 +3,4 @@ A modern society security and management system designed to bring safety, transp
 
 ## Current changes to be made
 - Start working on the Backend for **Login** and **Register**.
+- No need to make another server at all. Everything can be made within the Next.js environment.
