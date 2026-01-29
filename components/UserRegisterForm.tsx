@@ -20,9 +20,9 @@ export default function UserRegisterForm() {
         formState: { errors, isSubmitted },
     } = useForm<RegisterFormInputs>()
 
-    const onSubmit: SubmitHandler<RegisterFormInputs> = (data) => {
+    const onSubmit: SubmitHandler<RegisterFormInputs> = (formData) => {
         try {
-            console.log(data)
+            console.log(formData)
             setAlert({
                 type: "success",
                 message: "Account created successfully!",

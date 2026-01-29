@@ -23,17 +23,14 @@ export default function Register() {
 
                         {/* Animated Slider */}
                         <div
-                            className={`absolute inset-y-1 left-1 w-[calc(50%-0.25rem)] rounded-full
-              bg-linear-to-r from-[#1F4F7A] to-[#2DD4BF]
-              transition-transform duration-500 ease-in-out
+                            className={`absolute inset-y-1 left-1 w-[calc(50%-0.25rem)] rounded-full bg-linear-to-r from-[#1F4F7A] to-[#2DD4BF] transition-transform duration-500 ease-in-out
               ${mode === "admin" ? "translate-x-full" : "translate-x-0"}`}
                         />
 
                         {/* Buttons */}
                         <button
                             onClick={() => setMode("user")}
-                            className={`relative z-10 flex-1 py-2 text-sm font-medium rounded-full
-              transition-colors duration-300
+                            className={`relative z-10 flex-1 py-2 text-sm font-medium rounded-full transition-colors duration-300
               ${mode === "user"
                                     ? "text-[#0B1020]"
                                     : "text-[#AAB4C3] hover:text-white"
@@ -44,8 +41,7 @@ export default function Register() {
 
                         <button
                             onClick={() => setMode("admin")}
-                            className={`relative z-10 flex-1 py-2 text-sm font-medium rounded-full
-              transition-colors duration-300
+                            className={`relative z-10 flex-1 py-2 text-sm font-medium rounded-full transition-colors duration-300
               ${mode === "admin"
                                     ? "text-[#0B1020]"
                                     : "text-[#AAB4C3] hover:text-white"
