@@ -20,12 +20,19 @@ export default function AdminRegisterForm() {
         formState: { errors, isSubmitted },
     } = useForm<AdminFormInputs>()
 
-    const onSubmit: SubmitHandler<AdminFormInputs> = (data) => {
+    const onSubmit: SubmitHandler<AdminFormInputs> = async (formData) => {
         try {
-            console.log(data)
+            const response = await fetch("/api/auth/register/admin", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(formData)
+            })
+
+            const data = await response.json()
+
             setAlert({
                 type: "success",
-                message: "Account created successfully!",
+                message: data.message,
             })
             reset()
         } catch {

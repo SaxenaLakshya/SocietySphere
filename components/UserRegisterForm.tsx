@@ -20,12 +20,19 @@ export default function UserRegisterForm() {
         formState: { errors, isSubmitted },
     } = useForm<RegisterFormInputs>()
 
-    const onSubmit: SubmitHandler<RegisterFormInputs> = (formData) => {
+    const onSubmit: SubmitHandler<RegisterFormInputs> = async (formData) => {
         try {
-            console.log(formData)
+            const response = await fetch("/api/auth/register/user", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify(formData)
+            })
+
+            const data = await response.json()
+
             setAlert({
                 type: "success",
-                message: "Account created successfully!",
+                message: data.message,
             })
             reset()
         } catch {

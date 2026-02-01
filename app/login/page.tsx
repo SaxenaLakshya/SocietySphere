@@ -20,18 +20,25 @@ export default function LoginPage() {
         formState: { errors, isSubmitted },
     } = useForm<LoginFormInput>()
 
-    const onSubmit: SubmitHandler<LoginFormInput> = (data) => {
+    const onSubmit: SubmitHandler<LoginFormInput> = async (formData) => {
         try {
-            console.log(data)
+            const response = await fetch("/api/auth/register/admin", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(formData)
+            })
+
+            const data = await response.json()
+
             setAlert({
                 type: "success",
-                message: "Logging In!",
+                message: data.message,
             })
             reset()
         } catch {
             setAlert({
                 type: "error",
-                message: "Login failed. Please try again.",
+                message: "Registration failed. Please try again.",
             })
         }
     }

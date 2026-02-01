@@ -1,10 +1,5 @@
 import { NextResponse } from "next/server";
-
-type LoginInput = {
-    email: string,
-    password: string,
-    rememberMe: boolean,
-};
+import { AdminFormInputs } from "@/types";
 
 export async function GET() {
     return NextResponse.json({
@@ -13,9 +8,9 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
-    const body: LoginInput = await request.json();
+    const body: AdminFormInputs = await request.json();
     console.log(body);
     return NextResponse.json(
-        { message: "User Logged in successfully! (from API)" }
+        { message: "Society created successfully! (from API)" }
     );
 }
