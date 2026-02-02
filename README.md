@@ -3,5 +3,5 @@ A modern society security and management system designed to bring safety, transp
 
 ## Current changes to be made
 - Start working on the **Backend**.
-- NGL, open the code editor for the API development in different window. (Stay away from making mess in the code!)
-- No need to make another server at all. Everything can be made within the Next.js environment.
+- Already started with the API.
+- Going to explore *Clerk* for user management and Login and Signup stuff. No more re-inventing the wheel!

@@ -1,10 +1,15 @@
 "use client"
 
 import Image from "next/image";
+import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { ContactFormInput } from "@/types";
+import { GlobalAlert } from "@/components";
+import { ContactFormInput, GlobalAlertProps } from "@/types";
 
 export default function ContactPage() {
+    const [alert, setAlert] = useState<GlobalAlertProps | null>(null);
+
+
     const {
         register,
         handleSubmit,
@@ -13,14 +18,36 @@ export default function ContactPage() {
         formState: { errors, isSubmitted },
     } = useForm<ContactFormInput>()
 
-    const onSubmit: SubmitHandler<ContactFormInput> = (data) => {
-        console.log(data);
-        reset();
+    const onSubmit: SubmitHandler<ContactFormInput> = async (formData) => {
+        try {
+            const response = await fetch("/api/contact", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(formData)
+            })
+
+            const data = await response.json()
+
+            setAlert({
+                type: "success",
+                message: data.message,
+            })
+            reset()
+        } catch {
+            setAlert({
+                type: "error",
+                message: "Registration failed. Please try again.",
+            })
+        }
     }
 
 
     return (
         <main className="relative min-h-screen bg-[#0B1020] flex items-center justify-center px-6 py-20 overflow-hidden">
+
+            {alert && (
+                <GlobalAlert type={alert.type} message={alert.message} />
+            )}
 
             {/* Ambient Background Glow */}
             <div className="absolute inset-0 overflow-hidden">
