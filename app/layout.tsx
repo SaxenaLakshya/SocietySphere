@@ -1,4 +1,12 @@
 import type { Metadata } from "next";
+import {
+    ClerkProvider,
+    SignInButton,
+    SignUpButton,
+    SignedIn,
+    SignedOut,
+    UserButton,
+} from '@clerk/nextjs';
 import { Poppins, EB_Garamond } from "next/font/google";
 import "./globals.css";
 import { Footer, Navbar } from "@/components";
@@ -27,12 +35,14 @@ export default function RootLayout({
     children,
 }: { children: React.ReactNode }) {
     return (
-        <html lang="en">
-            <body className={`${poppins.variable} ${ebGaramond.variable} night-sky-gradient text-[#E6EDF3]`}>
-                <Navbar />
-                {children}
-                <Footer />
-            </body>
-        </html>
+        <ClerkProvider>
+            <html lang="en">
+                <body className={`${poppins.variable} ${ebGaramond.variable} night-sky-gradient text-[#E6EDF3]`}>
+                    <Navbar />
+                    {children}
+                    <Footer />
+                </body>
+            </html>
+        </ClerkProvider>
     );
 }
