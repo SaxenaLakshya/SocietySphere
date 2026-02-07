@@ -5,4 +5,4 @@ A modern society security and management system designed to bring safety, transp
 - Start working on the **Backend**.
 - Already started with the API.
 - Going to explore *Clerk* for user management and Login and Signup stuff. No more re-inventing the wheel!
-- Some major changes are required in **Navbar** and **Footer** (maybe) because we need to use the reusable component of *Clerk.js*.
+- User Login and Logout is doing well using *Clerk*. Now, we need clean up the old mess.
