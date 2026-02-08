@@ -6,3 +6,4 @@ A modern society security and management system designed to bring safety, transp
 - Already started with the API.
 - Going to explore *Clerk* for user management and Login and Signup stuff. No more re-inventing the wheel!
 - User Login and Logout is doing well using *Clerk*. Now, we need clean up the old mess.
+- Got some important work this week... will get back to this project ASAP. I will try to push new code this week (if possible)
