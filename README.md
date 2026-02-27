@@ -2,8 +2,5 @@
 A modern society security and management system designed to bring safety, transparency, and calm control to residential communities through a clean, aurora-inspired digital experience.
 
 ## Current changes to be made
-- Start working on the **Backend**.
-- Already started with the API.
-- Going to explore *Clerk* for user management and Login and Signup stuff. No more re-inventing the wheel!
-- User Login and Logout is doing well using *Clerk*. Now, we need clean up the old mess.
-- Got some important work this week... will get back to this project ASAP. I will try to push new code this week (if possible)
+- Finally, got first success during the webhook testing. It took me a lots of time!
+- Now, it's time to confirm the success in the webhooks.
