@@ -10,6 +10,7 @@ import {
 import { Poppins, EB_Garamond } from "next/font/google";
 import "./globals.css";
 import { Footer, Navbar } from "@/components";
+import { dark } from "@clerk/themes";
 
 const poppins = Poppins({
     subsets: ["latin"],
@@ -35,7 +36,11 @@ export default function RootLayout({
     children,
 }: { children: React.ReactNode }) {
     return (
-        <ClerkProvider>
+        <ClerkProvider
+            appearance={{
+                theme: dark,
+            }}
+        >
             <html lang="en">
                 <body className={`${poppins.variable} ${ebGaramond.variable} night-sky-gradient text-[#E6EDF3]`}>
                     <Navbar />
