@@ -3,4 +3,5 @@ A modern society security and management system designed to bring safety, transp
 
 ## Current changes to be made
 - Finally, got first success during the webhook testing. It took me a lots of time!
-- Now, it's time to confirm the success in the webhooks.
+- Success is officially confirmed by the NGROK! The webhooks are running properly and sending the data.
+- Now, it's time to get started with the database to store the data.
