@@ -25,3 +25,19 @@ Error   → #F87171
 linear-gradient(135deg, #1F4F7A → #2DD4BF)
 
 #F2C94C → Logo
+
+
+Required User data fields:-
+id (clerk_user_id)
+first_name
+last_name
+email
+phone_number
+profile_image_url
+role : resident | admin | security guard | society manager | maintenance staff
+society_id
+address
+resident_type: owner | tenant | family member
+account_status: active | offline | busy [somewhat same as discord]
+created_at
+updated_at
