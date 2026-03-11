@@ -17,12 +17,33 @@ export async function POST(req: NextRequest) {
                 first_name: evt.data.first_name,
                 last_name: evt.data.last_name,
                 image_url: evt.data.image_url
-            }).select().single()
+            })
 
             if (error) {
                 console.error('Error creating user:', error)
-            } else {
-                console.log('User created:', data.email_addresses[0].email_address)
+            }
+        }
+
+        // User updated
+        if (eventType === 'user.updated') {
+            // console.log('User updated:', evt.data)
+            const { data, error } = await supabase.from('users').update({
+                first_name: evt.data.first_name,
+                last_name: evt.data.last_name,
+                image_url: evt.data.image_url
+            }).eq('id', id)
+
+            if (error) {
+                console.error('Error updating user:', error)
+            }
+        }
+
+        // User deleted
+        if (eventType === 'user.deleted') {
+            // console.log('User deleted:', evt.data)
+            const { data, error } = await supabase.from('users').delete().eq('id', id)
+            if (error) {
+                console.error('Error deleting user:', error)
             }
         }
 
